@@ -1,21 +1,32 @@
-# rss-frontend
+# RSS Frontend
 
-## Project setup
+frontend project for [RSS Backend](https://github.com/bogdanaslt/rss-backend)
+
+## Run using docker (recommended)
+
 ```
-npm install
+$ docker-compose build
 ```
 
-### Compiles and hot-reloads for development
 ```
-npm run serve
+$ docker-compose up
+```
+
+## Run manually project setup
+```
+$ npm install
+```
+
+```
+$ npm run serve
 ```
 
 ### Compiles and minifies for production
 ```
-npm run build
+$ npm run build
 ```
 
 ### Lints and fixes files
 ```
-npm run lint
+$ npm run lint
 ```
