@@ -1,8 +1,7 @@
-import config from "@/config/config";
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: config.api_base,
+  baseURL: process.env.VUE_APP_API_BASE,
   timeout: 10000,
   withCredentials: true
 });

@@ -1,27 +1,21 @@
 <template>
   <div class="register-page">
     <div class="columns">
-      <form
-        novalidate
-        class="column is-6 is-offset-3"
-        @submit.prevent="register"
-      >
+      <form novalidate class="column is-6 is-offset-3" @submit.prevent="register">
         <div class="field">
           <label class="label">Email</label>
           <div class="control">
             <input
               v-model="email"
               class="input"
-              :class="[messages.email.isError ? 'is-danger' : 'is-success']"
+              :class="{'is-danger': messages.email.isError, 'is-success': !messages.email.isError && messages.email.message}"
               type="email"
               placeholder="someone@awesome.com"
             />
             <p
               class="help"
-              :class="[messages.email.isError ? 'is-danger' : 'is-success']"
-            >
-              {{ messages.email.message }}
-            </p>
+              :class="{'is-danger': messages.email.isError, 'is-success': !messages.email.isError && messages.email.message}"
+            >{{ messages.email.message }}</p>
           </div>
         </div>
         <div class="field">
@@ -30,27 +24,21 @@
             <input
               v-model="password"
               class="input"
-              :class="[messages.password.isError ? 'is-danger' : 'is-success']"
+              :class="[messages.password.isError ? 'is-danger' : '']"
               type="password"
               placeholder="********"
             />
             <p
               class="help"
-              :class="[messages.password.isError ? 'is-danger' : 'is-success']"
-            >
-              {{ messages.password.message }}
-            </p>
+              :class="[messages.password.isError ? 'is-danger' : '']"
+            >{{ messages.password.message }}</p>
           </div>
         </div>
         <div class="field is-grouped is-flex is-vcentered">
           <div class="control">
-            <button class="button is-link" :disabled="isLoading">
-              Register
-            </button>
+            <button class="button is-link" :disabled="isLoading">Register</button>
           </div>
-          <router-link class="is-link" :to="{ name: 'login' }"
-            >Navigate to Login page</router-link
-          >
+          <router-link class="is-link" :to="{ name: 'login' }">Navigate to Login page</router-link>
         </div>
       </form>
     </div>
@@ -68,11 +56,11 @@ export default {
       password: null,
       messages: {
         email: {
-          message: "",
+          message: null,
           isError: false
         },
         password: {
-          message: "",
+          message: null,
           isError: false
         }
       },
