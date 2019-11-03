@@ -19,14 +19,21 @@
         <div class="field">
           <label class="label">Password</label>
           <div class="control">
-            <input v-model="password" class="input" type="password" placeholder="********" />
+            <input
+              v-model="password"
+              class="input"
+              type="password"
+              placeholder="********"
+            />
           </div>
         </div>
         <div class="field is-grouped is-flex is-vcentered">
           <div class="control">
             <button class="button is-link" :disabled="isLoading">Login</button>
           </div>
-          <router-link class="is-link" :to="{name: 'register'}">Navigate to Registration page</router-link>
+          <router-link class="is-link" :to="{ name: 'register' }"
+            >Navigate to Registration page</router-link
+          >
         </div>
       </form>
     </div>
@@ -42,9 +49,9 @@ export default {
       email: null,
       password: null,
       errors: {
-        email: '',
-        password: '',
-        generic: ''
+        email: "",
+        password: "",
+        generic: ""
       },
       isLoading: false
     };
@@ -52,9 +59,9 @@ export default {
   methods: {
     login() {
       this.isLoading = true;
-      UserService.login({"email": this.email, "password": this.password})
-        .then(response => {
-            this.$router.push({ name: "home" });            
+      UserService.login({ email: this.email, password: this.password })
+        .then(() => {
+          this.$router.push({ name: "home" });
         })
         .catch(error => {
           this.errors.generic = error.response.data.message;
@@ -62,7 +69,7 @@ export default {
         .finally(() => {
           this.isLoading = false;
         });
-    },
+    }
   }
 };
 </script>

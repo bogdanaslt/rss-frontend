@@ -31,5 +31,5 @@ export default {
       return this.$store.state.user;
     }
   }
-}
+};
 </script>
