@@ -1,9 +1,11 @@
 import Vue from "vue";
 import Router from "vue-router";
+import store from "./store";
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
+  mode: 'history',
   routes: [
     {
       path: "/login",
@@ -21,7 +23,28 @@ export default new Router({
       path: "/",
       name: "home",
       component: () =>
-      import(/* webpackChunkName: "home" */ "./views/Home.vue")
+        import(/* webpackChunkName: "home" */ "./views/Home.vue"),
+      meta: {
+        auth: true
+      }
     },
   ]
 });
+
+router.beforeEach((to, from, next) => {
+  store.dispatch('getUser')
+    .then((response) => {
+      store.commit('setUser', response.data);
+    })
+    .catch(error => {
+      store.commit('setUser', null);
+    })
+    .finally(() => {
+      if (to.meta.auth && !store.state.user) {
+        router.push({ name: "login" });
+      }
+      next();
+    });
+});
+
+export default router;
