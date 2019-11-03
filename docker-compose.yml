@@ -1,0 +1,19 @@
+version: '3.2'
+
+services:
+  node:
+    build: ./.docker/node
+    container_name: node
+    entrypoint: /entry-point.sh
+    volumes:
+      - ./:/var/app:rw,cached
+      - /var/app/node_modules
+    restart: always
+    ports:
+      - "8080:8080"
+    networks:
+      - mintos
+
+networks:
+  mintos:
+    driver: bridge
