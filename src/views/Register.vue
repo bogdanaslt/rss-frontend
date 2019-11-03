@@ -1,7 +1,11 @@
 <template>
   <div class="register-page">
     <div class="columns">
-      <form novalidate class="column is-6 is-offset-3" @submit.prevent="register">
+      <form
+        novalidate
+        class="column is-6 is-offset-3"
+        @submit.prevent="register"
+      >
         <div class="field">
           <label class="label">Email</label>
           <div class="control">
@@ -15,24 +19,38 @@
             <p
               class="help"
               :class="[messages.email.isError ? 'is-danger' : 'is-success']"
-            >{{ messages.email.message }}</p>
+            >
+              {{ messages.email.message }}
+            </p>
           </div>
         </div>
         <div class="field">
           <label class="label">Password</label>
           <div class="control">
-            <input v-model="password" class="input" :class="[messages.password.isError ? 'is-danger' : 'is-success']" type="password" placeholder="********" />
+            <input
+              v-model="password"
+              class="input"
+              :class="[messages.password.isError ? 'is-danger' : 'is-success']"
+              type="password"
+              placeholder="********"
+            />
             <p
               class="help"
               :class="[messages.password.isError ? 'is-danger' : 'is-success']"
-            >{{ messages.password.message }}</p>
+            >
+              {{ messages.password.message }}
+            </p>
           </div>
         </div>
         <div class="field is-grouped is-flex is-vcentered">
           <div class="control">
-            <button class="button is-link" :disabled="isLoading">Register</button>
+            <button class="button is-link" :disabled="isLoading">
+              Register
+            </button>
           </div>
-          <router-link class="is-link" :to="{name: 'login'}">Navigate to Login page</router-link>
+          <router-link class="is-link" :to="{ name: 'login' }"
+            >Navigate to Login page</router-link
+          >
         </div>
       </form>
     </div>
@@ -49,14 +67,14 @@ export default {
       email: null,
       password: null,
       messages: {
-          email: {
-            message: "",
-            isError: false
-          },
-          password: {
-              message: "",
-              isError: false
-          }
+        email: {
+          message: "",
+          isError: false
+        },
+        password: {
+          message: "",
+          isError: false
+        }
       },
       isLoading: false
     };
@@ -67,8 +85,8 @@ export default {
   methods: {
     register() {
       this.isLoading = true;
-      UserService.register({"email": this.email, "password": this.password})
-        .then(response => {
+      UserService.register({ email: this.email, password: this.password })
+        .then(() => {
           this.$router.push({ name: "login" });
         })
         .catch(error => {

@@ -5,7 +5,7 @@ import store from "./store";
 Vue.use(Router);
 
 const router = new Router({
-  mode: 'history',
+  mode: "history",
   routes: [
     {
       path: "/login",
@@ -27,24 +27,29 @@ const router = new Router({
       meta: {
         auth: true
       }
-    },
+    }
   ]
 });
 
 router.beforeEach((to, from, next) => {
-  store.dispatch('getUser')
-    .then((response) => {
-      store.commit('setUser', response.data);
-    })
-    .catch(error => {
-      store.commit('setUser', null);
-    })
-    .finally(() => {
-      if (to.meta.auth && !store.state.user) {
-        router.push({ name: "login" });
-      }
-      next();
-    });
+  if (to.meta.auth && !store.state.user) {
+    store
+      .dispatch("getUser")
+      .then(response => {
+        store.commit("setUser", response.data);
+      })
+      .catch(() => {
+        store.commit("setUser", null);
+      })
+      .finally(() => {
+        if (to.meta.auth && !store.state.user) {
+          router.push({ name: "login" });
+        }
+        next();
+      });
+  } else {
+    next();
+  }
 });
 
 export default router;
