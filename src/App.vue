@@ -1,29 +1,35 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/login">About</router-link>
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns">
+          <div class="column">
+            <h1 class="title">RSS Reader</h1>
+            <h2 class="subtitle">Simple RSS reader for single feed</h2>
+          </div>
+          <div class="column is-clearfix" v-if="user">
+            <Profile />
+          </div>
+        </div>
+      </div>
     </div>
-    <router-view />
+    <div class="container padd">
+      <router-view />
+    </div>
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
+<script>
+import Profile from "./components/Profile";
+
+export default {
+  components: {
+    Profile
+  },
+  computed: {
+    user() {
+      return this.$store.state.user;
     }
   }
 }
-</style>
+</script>
